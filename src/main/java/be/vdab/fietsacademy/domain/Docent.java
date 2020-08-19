@@ -2,6 +2,7 @@ package be.vdab.fietsacademy.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "docenten")
@@ -69,5 +70,12 @@ public class Docent {
 
     public void setEmailAdres(String emailAdres) {
         this.emailAdres = emailAdres;
+    }
+    public void opslag(BigDecimal percentage) {
+        if (percentage.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException();
+        }
+        var factor = BigDecimal.ONE.add(percentage.divide(BigDecimal.valueOf(100)));
+        wedde = wedde.multiply(factor).setScale(2, RoundingMode.HALF_UP);
     }
 }
