@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultDocentServiceTest {
+class DefaultDocentServiceTest {
     private DefaultDocentService service;
     @Mock
     private DocentRepository repository;
