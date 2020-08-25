@@ -20,10 +20,16 @@ public class Campus {
     @OrderBy("fax")
     private Set<TelefoonNr> telefoonNrs;
 
+    @OneToMany
+    @JoinColumn(name = "campusid")
+    @OrderBy("voornaam, familienaam")
+    private Set<Docent> docenten;
+
     public Campus(String naam, Adres adres) {
         this.naam = naam;
         this.adres = adres;
         this.telefoonNrs = new LinkedHashSet<>();
+        this.docenten = new LinkedHashSet<>();
     }
     protected Campus(){}
 
@@ -41,5 +47,14 @@ public class Campus {
 
     public Set<TelefoonNr> getTelefoonNrs() {
         return Collections.unmodifiableSet(telefoonNrs);
+    }
+    public Set<Docent> getDocenten() {
+        return Collections.unmodifiableSet(docenten);
+    }
+    public boolean add(Docent docent) {
+        if (docent == null) {
+            throw new NullPointerException();
+        }
+        return docenten.add(docent);
     }
 }

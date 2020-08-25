@@ -2,6 +2,7 @@ package be.vdab.fietsacademy.repositories;
 
 import be.vdab.fietsacademy.domain.Adres;
 import be.vdab.fietsacademy.domain.Campus;
+import be.vdab.fietsacademy.domain.Docent;
 import be.vdab.fietsacademy.domain.TelefoonNr;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Import(JpaCampusRepository.class)
-@Sql("/insertCampus.sql")
+@Sql({"/insertCampus.sql", "/insertDocent.sql"})
 public class JpaCampusRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
     private static final String CAMPUSSEN = "campussen";
     private JpaCampusRepository repository;
@@ -46,5 +47,10 @@ public class JpaCampusRepositoryTest extends AbstractTransactionalJUnit4SpringCo
     void telefoonNrsLezen() {
         assertThat(repository.findById(idVanTestCampus()).get().getTelefoonNrs())
                 .containsOnly(new TelefoonNr("1", false, "test"));
+    }
+    @Test
+    void docentenLazyLoaded() {
+        assertThat(repository.findById(idVanTestCampus()).get().getDocenten()).hasSize(2)
+                .first().extracting(Docent::getVoornaam).isEqualTo("testM");
     }
 }
