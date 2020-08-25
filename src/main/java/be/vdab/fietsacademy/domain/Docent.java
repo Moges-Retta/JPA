@@ -24,13 +24,19 @@ public class Docent {
     @Column(name = "bijnaam")
     private Set<String> bijnamen;
 
-    public Docent(String voornaam, String familienaam, BigDecimal wedde, String emailAdres, Geslacht geslacht) {
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "campusid")
+    private Campus campus;
+
+    public Docent(String voornaam, String familienaam, BigDecimal wedde,
+                  String emailAdres, Geslacht geslacht,Campus campus) {
         this.voornaam = voornaam;
         this.familienaam = familienaam;
         this.wedde = wedde;
         this.emailAdres = emailAdres;
         this.geslacht = geslacht;
         this.bijnamen = new LinkedHashSet<>();
+        setCampus(campus);
     }
 
     protected Docent(){
@@ -79,6 +85,15 @@ public class Docent {
     public void setEmailAdres(String emailAdres) {
         this.emailAdres = emailAdres;
     }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+
     public void opslag(BigDecimal percentage) {
         if (percentage.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException();
