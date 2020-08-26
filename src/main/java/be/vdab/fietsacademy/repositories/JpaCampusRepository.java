@@ -1,10 +1,11 @@
 package be.vdab.fietsacademy.repositories;
 
 import be.vdab.fietsacademy.domain.Campus;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
-
+@Repository
 public class JpaCampusRepository implements CampusRepository{
     private final EntityManager manager;
 
