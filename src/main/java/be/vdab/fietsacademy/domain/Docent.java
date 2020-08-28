@@ -26,6 +26,8 @@ public class Docent {
     @CollectionTable(name = "docentenbijnamen", joinColumns = @JoinColumn(name = "docentid"))
     @Column(name = "bijnaam")
     private Set<String> bijnamen;
+    @Version
+    private long versie;
 
    @ManyToOne(fetch = FetchType.LAZY,optional = false)
    @JoinColumn(name = "campusid")
