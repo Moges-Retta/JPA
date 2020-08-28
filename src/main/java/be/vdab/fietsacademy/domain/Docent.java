@@ -3,6 +3,7 @@ package be.vdab.fietsacademy.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.Timestamp;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -26,8 +27,7 @@ public class Docent {
     @CollectionTable(name = "docentenbijnamen", joinColumns = @JoinColumn(name = "docentid"))
     @Column(name = "bijnaam")
     private Set<String> bijnamen;
-    @Version
-    private long versie;
+    private Timestamp versie;
 
    @ManyToOne(fetch = FetchType.LAZY,optional = false)
    @JoinColumn(name = "campusid")
